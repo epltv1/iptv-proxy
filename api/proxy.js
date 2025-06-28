@@ -9,7 +9,7 @@ module.exports = (req, res) => {
 
   https.get(streamUrl, (stream) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Content-Type', stream.headers['content-type'] || 'application/vnd.apple.mpegurl');
+    res.setHeader('Content-Type', 'text/plain'); // Force text for debugging
     stream.pipe(res);
   }).on('error', (err) => {
     res.status(500).send('Error fetching stream: ' + err.message);
