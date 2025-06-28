@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IPTV Stream Player</title>
+</head>
+<body>
+  <video id="video" controls width="640" height="360"></video>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script>
+    const video = document.getElementById('video');
+    const streamUrl = 'https://iptv-proxy.vercel.app/api/proxy?url=https://epltv1.github.io/f1.m3u8'; // Replace with your proxy URL
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(streamUrl);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error('HLS Error:', data);
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = streamUrl;
+    } else {
+      alert('Your browser does not support HLS streaming.');
+    }
+  </script>
+</body>
+</html>
